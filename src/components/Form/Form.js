@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 import Input from "../Input";
 import ButtonAdd from "../ButtonAdd";
 
@@ -7,6 +7,10 @@ import styles from "./Form.module.css";
 
 class Form extends Component {
   state = { name: "", number: "" };
+
+  static propTypes = {
+    addContact: PropTypes.func.isRequired,
+  };
 
   handleInput = (event) => {
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
@@ -18,10 +22,10 @@ class Form extends Component {
 
     this.props.addContact(name, number);
 
-    this.setState((prevState) => ({
+    this.setState({
       name: "",
       number: "",
-    }));
+    });
   };
 
   render() {
@@ -43,7 +47,7 @@ class Form extends Component {
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+          title="Номер телефона должен состоять из цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           value={number}
           handleInputChange={this.handleInput}
         />
